@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Heart, ShoppingCart, Star } from 'lucide-react';
+import { useFavorites } from '@/hooks/useFavorites';
 
 interface ProductCardProps {
   id: number;
@@ -28,6 +29,17 @@ const ProductCard = ({
   isNew, 
   isSale 
 }: ProductCardProps) => {
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  const isInFavorites = isFavorite(id);
+
+  const handleFavoriteClick = () => {
+    if (isInFavorites) {
+      removeFromFavorites(id);
+    } else {
+      addToFavorites(id);
+    }
+  };
+
   return (
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden group">
       <div className="relative overflow-hidden">
@@ -47,9 +59,12 @@ const ProductCard = ({
         <Button
           variant="ghost"
           size="icon"
+          onClick={handleFavoriteClick}
           className="absolute top-3 right-3 bg-white/80 hover:bg-white transition-all duration-300 opacity-0 group-hover:opacity-100"
         >
-          <Heart className="w-4 h-4" />
+          <Heart 
+            className={`w-4 h-4 ${isInFavorites ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
+          />
         </Button>
       </div>
       

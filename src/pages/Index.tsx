@@ -5,17 +5,20 @@ import Categories from '@/components/Categories';
 import ProductGrid from '@/components/ProductGrid';
 import Newsletter from '@/components/Newsletter';
 import Footer from '@/components/Footer';
+import { FavoritesProvider } from '@/hooks/useFavorites';
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <Hero />
-      <Categories />
-      <ProductGrid />
-      <Newsletter />
-      <Footer />
-    </div>
+    <FavoritesProvider>
+      <div className="min-h-screen">
+        <Header />
+        <Hero />
+        <Categories />
+        <ProductGrid />
+        <Newsletter />
+        <Footer />
+      </div>
+    </FavoritesProvider>
   );
 };
 

@@ -2,8 +2,11 @@
 import { ShoppingCart, Search, Menu, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useFavorites } from '@/hooks/useFavorites';
 
 const Header = () => {
+  const { favoritesCount } = useFavorites();
+
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4">
@@ -34,9 +37,11 @@ const Header = () => {
             </Button>
             <Button variant="ghost" size="sm" className="relative">
               <Heart className="w-4 h-4" />
-              <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-pink-500 text-white text-xs flex items-center justify-center">
-                2
-              </Badge>
+              {favoritesCount > 0 && (
+                <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-pink-500 text-white text-xs flex items-center justify-center">
+                  {favoritesCount}
+                </Badge>
+              )}
             </Button>
             <Button variant="ghost" size="sm" className="relative">
               <ShoppingCart className="w-4 h-4" />
