@@ -6,11 +6,13 @@ import { useFavorites } from '@/hooks/useFavorites';
 import { useCart } from '@/hooks/useCart';
 import { useState } from 'react';
 import Cart from './Cart';
+import SearchDialog from './SearchDialog';
 
 const Header = () => {
   const { favoritesCount } = useFavorites();
   const { cartCount } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <>
@@ -38,7 +40,12 @@ const Header = () => {
 
             {/* Actions */}
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="hidden md:flex">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="hidden md:flex"
+                onClick={() => setIsSearchOpen(true)}
+              >
                 <Search className="w-4 h-4" />
               </Button>
               <Button variant="ghost" size="sm" className="relative">
@@ -62,6 +69,14 @@ const Header = () => {
                   </Badge>
                 )}
               </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="md:hidden"
+                onClick={() => setIsSearchOpen(true)}
+              >
+                <Search className="w-4 h-4" />
+              </Button>
               <Button variant="ghost" size="sm" className="md:hidden">
                 <Menu className="w-4 h-4" />
               </Button>
@@ -71,6 +86,7 @@ const Header = () => {
       </header>
 
       <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <SearchDialog isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 };
