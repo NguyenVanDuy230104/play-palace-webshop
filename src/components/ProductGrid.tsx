@@ -1,5 +1,5 @@
-
 import ProductCard from './ProductCard';
+import { Button } from '@/components/ui/button';
 
 const ProductGrid = () => {
   const products = [
