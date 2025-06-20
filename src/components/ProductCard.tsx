@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Heart, ShoppingCart, Star } from 'lucide-react';
 import { useFavorites } from '@/hooks/useFavorites';
+import { useCart } from '@/hooks/useCart';
 
 interface ProductCardProps {
   id: number;
@@ -30,6 +31,7 @@ const ProductCard = ({
   isSale 
 }: ProductCardProps) => {
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  const { addToCart } = useCart();
   const isInFavorites = isFavorite(id);
 
   const handleFavoriteClick = () => {
@@ -38,6 +40,10 @@ const ProductCard = ({
     } else {
       addToFavorites(id);
     }
+  };
+
+  const handleAddToCart = () => {
+    addToCart({ id, name, price, image });
   };
 
   return (
@@ -93,6 +99,7 @@ const ProductCard = ({
           </div>
           <Button 
             size="sm" 
+            onClick={handleAddToCart}
             className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white rounded-full px-4"
           >
             <ShoppingCart className="w-4 h-4 mr-1" />

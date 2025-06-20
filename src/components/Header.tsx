@@ -3,9 +3,11 @@ import { ShoppingCart, Search, Menu, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useFavorites } from '@/hooks/useFavorites';
+import { useCart } from '@/hooks/useCart';
 
 const Header = () => {
   const { favoritesCount } = useFavorites();
+  const { cartCount } = useCart();
 
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
@@ -45,9 +47,11 @@ const Header = () => {
             </Button>
             <Button variant="ghost" size="sm" className="relative">
               <ShoppingCart className="w-4 h-4" />
-              <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center">
-                3
-              </Badge>
+              {cartCount > 0 && (
+                <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center">
+                  {cartCount}
+                </Badge>
+              )}
             </Button>
             <Button variant="ghost" size="sm" className="md:hidden">
               <Menu className="w-4 h-4" />
